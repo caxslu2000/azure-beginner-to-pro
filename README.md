@@ -1,25 +1,28 @@
-# azure-beginner-to-pro
+# Azure Storage SFTP – Multi-User Folder Isolation
 
-Multi-User Folder Isolation
-Implementação de um servidor SFTP baseado em Azure Storage Account, permitindo que múltiplos usuários acessem somente suas próprias pastas dentro de um container.
-
+Implementação de um **servidor SFTP baseado em Azure Storage Account**, permitindo que múltiplos usuários acessem **somente suas próprias pastas** dentro de um container.
 
 Esta solução utiliza:
-Azure Storage Account com SFTP habilitado
-Local Users
-Hierarchical Namespace (Data Lake Gen2)
-ACL POSIX
 
+- Azure Storage Account com **SFTP habilitado**
+- **Local Users**
+- **Hierarchical Namespace (Data Lake Gen2)**
+- **ACL POSIX**
 
-Objetivo:
-Automatizar criação de usuários
-Criar estrutura de diretórios
-Isolar acesso por pasta
-Gerar credenciais automaticamente
+## Objetivo
 
+- Automatizar criação de usuários
+- Criar estrutura de diretórios
+- Isolar acesso por pasta
+- Gerar credenciais automaticamente
 
-Arquitetura
+---
+
+# Arquitetura
+
 Estrutura utilizada no container:
+
+```
 data-container
 │
 ├── config
@@ -33,36 +36,62 @@ data-container
     ├── user1
     ├── user2
     └── user3
-    
+```
 
 Cada usuário:
-possui home directory em inbound/{usuario}
-possui acesso RW somente à sua pasta
 
+- possui **home directory em `inbound/{usuario}`**
+- possui **acesso RW somente à sua pasta**
 
-Pré-requisitos
-1️⃣ Azure CLI instalada
+---
+
+# Pré-requisitos
+
+### 1️⃣ Azure CLI instalada
+
+```bash
 az version
-2️⃣ Login na subscription
+```
+
+### 2️⃣ Login na subscription
+
+```bash
 az login
-3️⃣ Storage Account com:
-SFTP habilitado
-Hierarchical Namespace habilitado
-4️⃣ Permissões necessárias:
-Storage Blob Data Owner
+```
+
+### 3️⃣ Storage Account com:
+
+- **SFTP habilitado**
+- **Hierarchical Namespace habilitado**
+
+### 4️⃣ Permissões necessárias
+
+- `Storage Blob Data Owner`
+
 ou
-Storage Blob Data Contributor
 
+- `Storage Blob Data Contributor`
 
-Variáveis utilizadas
+---
+
+# Variáveis utilizadas
+
+```bash
 STORAGE_ACCOUNT=storageaccountname
 RESOURCE_GROUP=resource-group-name
 CONTAINER=data-container
+```
 
+---
 
-Arquivo de usuários
-Criar um arquivo users.txt
+# Arquivo de usuários
+
+Criar um arquivo chamado **`users.txt`**
+
+```
 user1
 user2
 user3
-Cada linha representa um usuário SFTP.
+```
+
+Cada linha representa um **usuário SFTP**.
